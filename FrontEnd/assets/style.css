@@ -125,6 +125,39 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+.groupe-filtres {
+	display: flex;
+	flex-wrap: wrap; /* Wraps filters onto the next line as screen size decreases */
+	justify-content: center;
+	align-items: center;
+}
+
+.filtre {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 4px 19px;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	height: 37px;
+	margin-right: 10px;
+	margin-bottom: 15px;
+
+	color:#1D6154;
+	background-color: white;
+	font-family: inherit;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+.filtre:hover {
+	cursor: pointer;
+	color: white;
+	background-color: #1D6154;
+	font-weight: normal;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
