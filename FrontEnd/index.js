@@ -5,10 +5,7 @@ const apiURL = 'http://localhost:5678/api/';
 
 // Fetching works from API
 async function getWorks(){
-    let response = await fetch(apiURL+'works', {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'},
-    });
+    let response = await fetch(apiURL+'works');
     let works = await response.json();
     return works;
 }
