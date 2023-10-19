@@ -15,6 +15,7 @@ async function displayWorks() {
     const works = await getWorks();
 
     const gallery = document.getElementById("gallery");
+    const miniGallery = document.getElementById("mini-gallery"); // For Modal window on Edition Mode
 
     works.forEach((work) => {
       // Creating the DOM elements
@@ -30,6 +31,19 @@ async function displayWorks() {
 
       // Appending DOM elements to their respective parent
       newFigure.appendChild(newImg);
+
+      // -----> Displaying images on Modal window on Edition Mode
+      //   Need to clone it before appending to miniGallery, because when you append an element that already exists in the DOM to another location, it will be moved, not duplicated.
+      let newFigureClone = newFigure.cloneNode(true);
+      newFigureClone.setAttribute("id", "figure-mini-gallery");
+
+      const trashIcon = document.createElement("icon");
+      trashIcon.classList.add("fa-solid", "fa-trash-can");
+      trashIcon.setAttribute("id", "trash-icon");
+
+      newFigureClone.appendChild(trashIcon);
+      miniGallery.appendChild(newFigureClone);
+
       newFigure.appendChild(newCaption);
       gallery.appendChild(newFigure);
     });
@@ -190,11 +204,11 @@ if (token) {
 
   const titreEdition = document.querySelector("#titre-edition");
   titreEdition.toggleAttribute("style");
-}
 
-// Modal activation after clicking on the "Edit" icon
-document.querySelector("#icone-edition").addEventListener("click", () => {
-  const firstModal = document.querySelector("#first-modal");
-  firstModal.showModal();
-  // TODO: firstModal.close() when we click outside the modal
-});
+  // Modal activation after clicking on the "Edit" icon
+  document.querySelector("#icone-edition").addEventListener("click", () => {
+    const firstModal = document.querySelector("#first-modal");
+    firstModal.showModal();
+    // TODO: firstModal.close() when we click outside the modal
+  });
+}

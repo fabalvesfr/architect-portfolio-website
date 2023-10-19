@@ -183,6 +183,14 @@ a {
 #first-modal {
   border: white;
   border-radius: 10px;
+  width: 360px;
+  height: 488px;
+  padding: 50px 110px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 
 #first-modal h3 {
@@ -192,6 +200,38 @@ a {
   line-height: 30px;
   letter-spacing: 0em;
   text-align: center;
+  margin-bottom: 35px;
+}
+
+#mini-gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 18%);
+  grid-column-gap: 2%;
+  grid-row-gap: 2%;
+}
+
+#figure-mini-gallery {
+  position: relative;
+}
+
+#mini-gallery img {
+  width: 100%;
+}
+
+#trash-icon {
+  position: absolute;
+  top: 8%;
+  right: 8%;
+  border: 1px solid black;
+  color: #fafafa;
+  background-color: black;
+  border-radius: 2px;
+  width: 25%;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ------ ------ ------ */
