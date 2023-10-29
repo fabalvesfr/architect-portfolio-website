@@ -247,6 +247,12 @@ if (token) {
   closeModalIcon.addEventListener("click", () => {
     modalWrapper.setAttribute("style", "display:none;");
   });
+  document.addEventListener("keydown", (event) => {
+    console.log(event.target);
+    if (event.key == "Escape" || event.key == "Esc") {
+      modalWrapper.setAttribute("style", "display:none;");
+    }
+  });
 
   // DELETING works
   const miniGallery = document.getElementById("mini-gallery");
