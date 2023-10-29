@@ -21,12 +21,48 @@
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
-    <dialog id="first-modal">
-      <h3>Galerie photo</h3>
-      <div id="mini-gallery">
-        <!-- TODO: Gallery items are to be inserted here dynamically  -->
-      </div>
-    </dialog>
+    <div class="modal-wrapper" style="display: none">
+      <dialog id="modal" style="display: none">
+        <section class="modal-nav-icons">
+          <i class="fa-solid fa-arrow-left"></i>
+          <i
+            id="close-modal-icon"
+            class="fa-solid fa-x"
+            style="color: #050505"
+          ></i>
+        </section>
+        <!-- TODO: display: none -> to be deleted, only for testing -->
+        <section class="modal-content-1">
+          <h3>Galerie photo</h3>
+          <div id="mini-gallery">
+            <!-- Gallery items are inserted here dynamically  -->
+          </div>
+          <div id="add-work">
+            <button id="add-work-btn">Ajouter une photo</button>
+          </div>
+        </section>
+        <section class="modal-content-2" style="display: none">
+          <h3>Ajout photo</h3>
+          <form action="#" id="add-work-form">
+            <div class="img-to-upload">
+              <i class="fa-regular fa-image"></i><br />
+              <label for="image" class="custom-file-upload">
+                + Ajouter photo
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                name="image"
+                id="image"
+                style="display: none"
+              />
+              <p>jpg, png : 4mo max</p>
+            </div>
+          </form>
+        </section>
+      </dialog>
+    </div>
+
     <header>
       <div id="bandeau-edition" style="display: none">
         <i class="fa-regular fa-pen-to-square"></i>

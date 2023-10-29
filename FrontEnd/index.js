@@ -2,11 +2,34 @@ const apiURL = "http://localhost:5678/api/";
 
 // *********** FUNCTIONS ***************
 
-// Fetching works from API
+// GETTING works from API
 async function getWorks() {
   let response = await fetch(apiURL + "works");
   let works = await response.json();
   return works;
+}
+
+// DELETING works
+async function deleteWorks(token, workId) {
+  try {
+    const response = await fetch(apiURL + "works/" + workId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 200) {
+      console.log("Work deleted successfully");
+      // Here you can update your UI or perform any other actions
+    } else {
+      console.error("Failed to delete work. Status code: " + response.status);
+    }
+  } catch (error) {
+    console.error("Error: ", error);
+    // Handling network or other errors here
+  }
 }
 
 // Display ALL works
@@ -15,7 +38,9 @@ async function displayWorks() {
     const works = await getWorks();
 
     const gallery = document.getElementById("gallery");
+    gallery.innerHTML = "";
     const miniGallery = document.getElementById("mini-gallery"); // For Modal window on Edition Mode
+    miniGallery.innerHTML = "";
 
     works.forEach((work) => {
       // Creating the DOM elements
@@ -40,10 +65,12 @@ async function displayWorks() {
       const trashIcon = document.createElement("icon");
       trashIcon.classList.add("fa-solid", "fa-trash-can");
       trashIcon.setAttribute("id", "trash-icon");
+      trashIcon.setAttribute("data-id", work.id); // ID that will be used for deleting a work
 
       newFigureClone.appendChild(trashIcon);
       miniGallery.appendChild(newFigureClone);
 
+      // Had to let these two lines down here otherwise images in the mini gallery would have a caption too, which they're not supposed to.
       newFigure.appendChild(newCaption);
       gallery.appendChild(newFigure);
     });
@@ -194,10 +221,13 @@ hotelsResto.addEventListener("click", () => {
 
 // *******************************************
 
+// ******** ADMIN MODE ********* //
+
 // Retrieving the token variable from local storage
 const token = localStorage.getItem("token");
 
 if (token) {
+  console.log(token);
   // Enabling "Edition mode" DOM elements
   const bandeauEdition = document.querySelector("#bandeau-edition");
   bandeauEdition.toggleAttribute("style");
@@ -206,9 +236,25 @@ if (token) {
   titreEdition.toggleAttribute("style");
 
   // Modal activation after clicking on the "Edit" icon
+  const modal = document.querySelector("#modal");
+  const modalWrapper = document.querySelector(".modal-wrapper");
   document.querySelector("#icone-edition").addEventListener("click", () => {
-    const firstModal = document.querySelector("#first-modal");
-    firstModal.showModal();
-    // TODO: firstModal.close() when we click outside the modal
+    modalWrapper.toggleAttribute("style");
+    modal.toggleAttribute("style");
+  });
+
+  const closeModalIcon = document.querySelector("#close-modal-icon");
+  closeModalIcon.addEventListener("click", () => {
+    modalWrapper.setAttribute("style", "display:none;");
+  });
+
+  // DELETING works
+  const miniGallery = document.getElementById("mini-gallery");
+  miniGallery.addEventListener("click", (event) => {
+    if (event.target && event.target.matches("#trash-icon")) {
+      const dataId = event.target.getAttribute("data-id");
+      console.log(dataId);
+      deleteWorks(token, dataId);
+    }
   });
 }

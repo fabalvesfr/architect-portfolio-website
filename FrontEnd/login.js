@@ -33,6 +33,7 @@ loginForm.addEventListener("submit", ($event) => {
       // Storing the login token on the brower after sucessful '201 - Created'
       const data = await response.json();
       const token = data.token;
+
       // Using the local storage on the browse to storage a value called 'token' with the token retrieved via the POST request
       localStorage.setItem("token", token);
       console.log(token);
