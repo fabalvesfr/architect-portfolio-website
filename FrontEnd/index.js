@@ -9,6 +9,28 @@ async function getWorks() {
   return works;
 }
 
+// ADDING a new work
+async function addWork(token, formData) {
+  try {
+    const response = await fetch(apiURL + "works", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: formData,
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error("Failed to add new work. ", response.status);
+    }
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+}
+
 // DELETING works
 async function deleteWorks(token, workId) {
   try {
@@ -227,7 +249,6 @@ hotelsResto.addEventListener("click", () => {
 const token = localStorage.getItem("token");
 
 if (token) {
-  console.log(token);
   // Enabling "Edition mode" DOM elements
   const bandeauEdition = document.querySelector("#bandeau-edition");
   bandeauEdition.toggleAttribute("style");
@@ -263,4 +284,90 @@ if (token) {
       deleteWorks(token, dataId);
     }
   });
+
+  // ADDING new works
+
+  // Directing the user to the Add Photo modal page when he clicks on the "Ajouter une photo" button
+  const modalContent1 = document.querySelector(".modal-content-1");
+  const modalContent2 = document.querySelector(".modal-content-2");
+  const arrowLeft = document.querySelector(".fa-arrow-left");
+
+  document.querySelector("#add-work-btn").addEventListener("click", () => {
+    modalContent1.setAttribute("style", "display:none");
+    modalContent2.toggleAttribute("style");
+    arrowLeft.toggleAttribute("style");
+  });
+
+  arrowLeft.addEventListener("click", () => {
+    if (!modalContent2.classList.contains("style")) {
+      // If there is no style="display:none" it means that modal-content-2 is being displayed and a click on the left arrow means we need to come back to modal-content-1
+      modalContent1.toggleAttribute("style");
+      modalContent2.setAttribute("style", "display:none");
+      arrowLeft.setAttribute("style", "display:none");
+    }
+  });
 }
+
+// Replacing the .img-to-upload div with the uploaded image
+const imgContainer = document.querySelector(".img-to-upload");
+const imgInput = document.querySelector("#image");
+const imgElem = document.createElement("img");
+
+imgInput.addEventListener("change", () => {
+  if (imgInput.files.length > 0) {
+    // If an image has been uploaded:
+    imgElem.src = URL.createObjectURL(imgInput.files[0]);
+
+    imgContainer.innerHTML = "";
+    imgContainer.appendChild(imgElem);
+  }
+});
+
+// ADDING a new work through form submission and POST API request
+const addWorkForm = document.querySelector("#add-work-form");
+addWorkForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  // Grabbing all user inputs: image, title, and category
+  const imgFile = imgInput.files[0];
+  const title = document.querySelector("#titre-photo").value;
+  const category = document.querySelector("#categorie").value;
+
+  // Creating a FormData object that will be passed as an argument to the addWork() function
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("category", category);
+
+  if (imgFile) {
+    const reader = new FileReader();
+
+    reader.onload = async (e) => {
+      const fileContent = e.target.result;
+      const fileObject = new File([fileContent], imgFile.name, {
+        type: imgFile.type,
+      });
+
+      formData.append("image", fileObject);
+
+      // Retrieve token from local storage
+      const token = localStorage.getItem("token");
+
+      // Call the addWork function with the token and formData
+      try {
+        const addedWork = await addWork(token, formData);
+
+        // Handle the response, e.g., display a success message, update UI, etc.
+        console.log("Work added successfully:", addedWork);
+        await displayWorks();
+
+        // Close the modal after form submission
+        const modalWrapper = document.querySelector(".modal-wrapper");
+        modalWrapper.setAttribute("style", "display:none");
+      } catch (error) {
+        console.error("Error adding work:", error);
+      }
+    };
+
+    reader.readAsArrayBuffer(imgFile);
+  }
+});

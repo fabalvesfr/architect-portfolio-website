@@ -199,7 +199,6 @@ a {
   border: white;
   border-radius: 10px;
   width: 630px;
-  height: 688px;
   padding: 0;
 
   display: flex;
@@ -212,9 +211,17 @@ a {
   display: flex;
   justify-content: space-between;
 
-  margin-top: 0px;
+  position: relative;
+
+  margin-top: 35px;
   margin-bottom: 0;
   padding: 0 35px;
+}
+
+#close-modal-icon {
+  position: absolute;
+  right: 0;
+  padding: inherit;
 }
 
 .modal-content-1,
@@ -223,6 +230,7 @@ a {
   margin: 0;
 }
 
+.fa-arrow-left,
 #close-modal-icon:hover {
   cursor: pointer;
 }
@@ -272,7 +280,8 @@ a {
   cursor: pointer;
 }
 
-#add-work {
+#add-work,
+#valider-work {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -280,7 +289,8 @@ a {
   margin-top: 60px;
 }
 
-#add-work-btn {
+#add-work-btn,
+#valider-work-btn {
   margin-top: 35px;
   color: white;
   background-color: #1d6154;
@@ -293,7 +303,8 @@ a {
   font: inherit;
 }
 
-#add-work-btn:hover {
+#add-work-btn:hover,
+#valider-work-btn:hover {
   cursor: pointer;
 }
 
@@ -311,6 +322,10 @@ a {
   border-radius: 3px;
 }
 
+.img-to-upload img {
+  height: 100%;
+}
+
 .custom-file-upload {
   width: 173px;
   height: 36px;
@@ -320,16 +335,15 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 5px !important;
 }
 .custom-file-upload:hover {
   cursor: pointer;
   background-color: #c2c8cd;
 }
 
-.img-to-upload i {
-  display: inline-block;
-  width: 68.14px;
-  height: 59.62px;
+#icone-image {
+  font-size: 6em;
   color: #b9c5cc;
 }
 
@@ -455,7 +469,8 @@ li:hover {
   margin-bottom: 20px;
 }
 #contact form,
-#login-area form {
+#login-area form,
+.form-field {
   text-align: left;
   margin-top: 30px;
   display: flex;
@@ -463,15 +478,19 @@ li:hover {
 }
 
 #contact input,
-#login-area input {
+#login-area input,
+.modal-content-2 input,
+.modal-content-2 select {
   height: 50px;
   font-size: 1.2em;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 #contact label,
-#login-area label {
+#login-area label,
+.modal-content-2 label {
   margin: 2em 0 1em 0;
+  font-size: 1.3em;
 }
 #contact textarea {
   border: none;

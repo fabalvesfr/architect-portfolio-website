@@ -24,7 +24,7 @@
     <div class="modal-wrapper" style="display: none">
       <dialog id="modal" style="display: none">
         <section class="modal-nav-icons">
-          <i class="fa-solid fa-arrow-left"></i>
+          <i class="fa-solid fa-arrow-left" style="display: none"></i>
           <i
             id="close-modal-icon"
             class="fa-solid fa-x"
@@ -45,7 +45,7 @@
           <h3>Ajout photo</h3>
           <form action="#" id="add-work-form">
             <div class="img-to-upload">
-              <i class="fa-regular fa-image"></i><br />
+              <i id="icone-image" class="fa-regular fa-image"></i><br />
               <label for="image" class="custom-file-upload">
                 + Ajouter photo
               </label>
@@ -55,8 +55,34 @@
                 name="image"
                 id="image"
                 style="display: none"
+                required
               />
               <p>jpg, png : 4mo max</p>
+            </div>
+            <div class="form-field">
+              <label for="titre-photo">Titre</label>
+              <input
+                type="text"
+                id="titre-photo"
+                name="titre-photo"
+                required
+                autofocus
+              />
+            </div>
+            <div class="form-field">
+              <label for="categorie">Catégorie</label>
+              <select name="categorie" id="categorie" required>
+                <option value="" disabled hidden selected></option>
+                <option value="tous">Tous</option>
+                <option value="objet">Objets</option>
+                <option value="appartements">Appartements</option>
+                <option value="hotels-et-restaurants">
+                  Hôtels et Restaurants
+                </option>
+              </select>
+              <div id="valider-work">
+                <input type="submit" id="valider-work-btn" value="Valider" />
+              </div>
             </div>
           </form>
         </section>
