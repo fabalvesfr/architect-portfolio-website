@@ -1,8 +1,7 @@
-# Portfolio-architecte-sophie-bluel
+# Portfolio-architect-sophie-bluel
 
-Code du projet 6 d'intégrateur web.
+This is a project of an architect portfolio website.
+It has a regular view containing the architect profile, gallery with her works and a contact form.
+It also has a link to a login page, when the architect can log in and have access as an administrator (edition mode), where she can delete, as well as add new works to the backend and have the UI updated accordingly. 
 
-## Information pour le lancer le code
-
- - Lancer le backend depuis votre terminal en suivant les instruction du fichier ReadMe.
- - Si vous désirez afficher le code du backend et du frontend, faites le dans 2 instances de VSCode différentes pour éviter tout problème
+ - Information on how to launch the server side is in the Backend folder, on its README file.
